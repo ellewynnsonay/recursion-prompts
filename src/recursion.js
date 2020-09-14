@@ -30,30 +30,82 @@ var sum = function(array) {
     if (array.length === 0) {
         return 0;
     } 
-    
     var copy = array.slice();
-
     return copy.pop() + sum(copy);
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+    //input - array of nested arrays of numbers 
+    //output - sum of all numbers 
+    //base cases 
+    //recursion case 
+    //if arrays are empty 
+     //return 0 
+    if (array.length === 0){
+        return 0;
+    } 
+    //make copy of array 
+    var copy = array.slice();
+    //flatten copy 
+    var flat = copy.flat(Infinity);
+    return flat.pop() + arraySum(flat)  
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+if (n === 0){
+    return true; 
+}  else {
+    if (n === 1) {
+        return false; 
+    }
+} 
+if (n < 0) {
+    return isEven(n + 2);
+}
+return isEven(n - 2);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+   //input number 
+   //output sum of all numbers below input number 
+   if (n === 0) {
+       return 0
+   }
+
+   if (n < 0) {
+    return n + 1 + sumBelow(n + 1);
+  }
+   
+   return n - 1 + sumBelow(n - 1);
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+    var container = [];
+    if (x === y) {
+       return [];
+    }
+
+    if ( x + 1 === y || y - 1 === x) {
+        return [];
+    }
+    
+    if (x > y) {
+        var newX = y;
+        var newY = x;
+        container.push(newX + 1);
+        return container.concat(range(newX + 1 , newY)).reverse();
+    } else {
+        container.push(x + 1);
+        return container.concat(range(x + 1, y)) 
+    }
 };
 
 // 7. Compute the exponent of a number.
